@@ -146,22 +146,22 @@
    var updateEmployee = function(number, employee){
       $.ajax({
          method: "PUT",
-         url: "http://localhost:8181/restapi/employee/"+number,
+         url: "http://hrmsystem.herokuapp.com/restapi/employee/"+number,
          contentType: "application/json;charset=utf8",
-         dataType: "json",
          data: JSON.stringify(employee),
          success: function(response){
-            alert("ok");
+             alert("Successfully edit employee's information, thank you!");
          },
          error: function(error){
-            alert("error");
+            var errorObj = JSON.parse(error.responseText);
+            alert("Cannot insert this employee cause "+ errorObj.error+" ("+errorObj.status+")");
          }
       })
    }
    var deleteEmployee = function(number){
        $.ajax({
           method: "DELETE",
-          url: "http://localhost:8181/restapi/employee/"+number,
+          url: "http://hrmsystem.herokuapp.com/restapi/employee/"+number,
           contentType: "application/json;charset=utf8",
           success: function(response){
               alert("The employee with id number "+number+" was deleted");
@@ -175,9 +175,8 @@
    var insertData = function(employeeObj){
       $.ajax({
          method: "POST",
-         url: "http://localhost:8181/restapi/employee",
+         url: "http://hrmsystem.herokuapp.com/restapi/employee",
          contentType: "application/json;charset=utf8",
-         dataType: "json",
          data: JSON.stringify(employeeObj),
          success: function(response){
             $("#insertResult").text("Successfully insert employee, thank you!").addClass("alert alert-success").show();
@@ -191,7 +190,7 @@
    
    var fetchData = function(selected){
       $.ajax({
-         url: "http://localhost:8181/restapi/employee",
+         url: "http://hrmsystem.herokuapp.com/restapi/employee",
          method: "GET",
          dataType: "json",
          timeout: 10000,
