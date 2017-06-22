@@ -80,15 +80,51 @@
                        <button class="btn btn-default" id="insertBtn">Create</button>
                    </div>
           </div><!--insertEmployee-->
+          
           <div id="updateEmployee" style="display: none">
-              <form class="form-inline">
+              <div class="form-inline">
 	             <div class="input-group">
 	               <span class="input-group-addon">Keyword</span>
-	               <input type="text" class="form-control" name="keyword" placeholder="Enter keyword">
+	               <input type="text" class="form-control" name="keyword" placeholder="Enter phone or email">
 	             </div>
-	               <button class="btn btn-default">Search</button>
-	          </form>     
-          </div>
+	               <button class="btn btn-default" id="updateBtn">Search</button>
+	          </div>
+	      </div>    
+	          <div id="updateError" style="display:none; margin-top: 20px;"></div>
+	          <div id="updateResult" style="display:none; margin-top: 20px;">
+	               <div class="form-group text-center">
+                       <h3 class="btn btn-primary">Update employee's information</h3>
+                   </div>
+                   <div class="form-group">
+                       <label></label>
+                        <input type="text" class="form-control" name="oldName">
+                   </div>
+                   <div class="form-group">
+                       <label></label>
+                        <input type="text" class="form-control" name="oldAddress">
+                   </div>
+                   <div class="form-group">
+                       <label></label>
+                        <input type="text" class="form-control" name="oldPhone">
+                   </div>
+                   <div class="form-group">
+                       <label></label>
+                        <input type="text" class="form-control" name="oldEmail">
+                   </div>
+                   <div class="form-group">
+                       <label></label>
+                        <input type="text" id="datepicker" class="form-control" name="oldBirthday">
+                   </div>
+                   <div class="form-group">
+                       <label></label>
+                        <input type="text" class="form-control" name="oldPosition">
+                   </div>
+                    <div class="form-group">
+                       <label></label>
+                       <input type="hidden" name="number">
+                       <button class="btn btn-default" id="saveBtn">Save</button>
+                   </div>
+	          </div>     
        </div><!--col-sm-5-->
        <div class="col-sm-1">
        </div>
@@ -107,6 +143,21 @@
 </div><!--container-->
 </body>
 <script>
+   var updateEmployee = function(number, employee){
+      $.ajax({
+         method: "PUT",
+         url: "http://localhost:8181/restapi/employee/"+number,
+         contentType: "application/json;charset=utf8",
+         dataType: "json",
+         data: JSON.stringify(employee),
+         success: function(response){
+            alert("ok");
+         },
+         error: function(error){
+            alert("error");
+         }
+      })
+   }
    var deleteEmployee = function(number){
        $.ajax({
           method: "DELETE",
@@ -220,6 +271,47 @@
                   $("#searchEmployee").hide();
                   $("#deleteEmployee").hide();
                   $("#updateEmployee").show();
+                  //$("#updateResult").dialog('close');
+                  $("#updateBtn").click(function(){
+                      $("#updateResult").hide();
+                      $("#updateError").hide();
+                      var lkm=0;
+                      var keyword = $(":input[name='keyword']").val();
+                      for(var i=0; i < data.length; i++){
+                         if(keyword == data[i].email | keyword == data[i].phone){
+                            $(":input[name='oldName']").attr("placeholder",data[i].name);
+                            $(":input[name='oldAddress']").attr("placeholder",data[i].address);
+                            $(":input[name='oldBirthday']").attr("placeholder",data[i].birthday);
+                            $(":input[name='oldPosition']").attr("placeholder",data[i].position);
+                            $(":input[name='oldEmail']").attr("placeholder",data[i].email);
+                            $(":input[name='oldPhone']").attr("placeholder",data[i].phone);
+                            $(":input[name='number']").val(data[i].number);
+                            $(":input[name='oldName']").val(data[i].name);
+                            $(":input[name='oldAddress']").val(data[i].address);
+                            $(":input[name='oldBirthday']").val(data[i].birthday);
+                            $(":input[name='oldPosition']").val(data[i].position);
+                            $(":input[name='oldEmail']").val(data[i].email);
+                            $(":input[name='oldPhone']").val(data[i].phone);
+                            $("#updateResult").dialog();
+                         }else {
+                            lkm++;
+                            if(lkm == data.length)
+                               $("#updateError").text("No employee found with keyword: "+ keyword).addClass("alert alert-warning").show();
+                         }
+                      }
+                  })
+                  $("#saveBtn").click(function(){
+                      var employee = {};
+                      var number = $(":input[name='number']").val();
+                         employee["name"]= $(":input[name='oldName']").val();
+	                     employee["address"] = $(":input[name='oldAddress']").val();
+	                     employee["email"] = $(":input[name='oldEmail']").val();
+	                     employee["phone"] = $(":input[name='oldPhone']").val();
+	                     employee["position"] = $(":input[name='oldPosition']").val();
+	                     employee["birthday"] = $(":input[name='oldBirthday']").val();
+	                     updateEmployee(number, employee);
+	                     $("#updateResult").dialog('close');
+                  })
                   break;
             default:
                   fetchData();

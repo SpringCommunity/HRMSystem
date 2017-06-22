@@ -21,11 +21,17 @@
 	display: none;
 }
 
-#searchEmployee , #deleteEmployee, #insertEmployee , #updateEmployee{
+#searchEmployee , #deleteEmployee, #insertEmployee , #updateEmployee {
 	background-color: #eee;
 	margin: auto;
 	margin-top: 50px;
 	padding: 20px;
 	padding-bottom: 20px;
 	clear: both;
+}
+
+#updateResult {
+	background-color: #ddd;
+	border: 1px solid #eee;
+	padding: 20px;
 }
