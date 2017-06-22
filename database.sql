@@ -1,0 +1,3 @@
+CREATE TABLE Employee(Number int NOT NULL AUTO_INCREMENT, Name varchar(255), Address text, Phone varchar(255), Email varchar(255), Birthday datetime, Position varchar(255), PRIMARY KEY (number) );
+INSERT INTO Employee(Name, Address, Phone, Email, Birthday, Position) VALUES ("Dinh Duc Thinh","Keihästie 3B30","0445206766","duc.dinh@yahoo.com","14-06-1984","Työjohto");
+INSERT INTO Employee(Name, Address, Phone, Email, Birthday, Position) VALUES ("Nguyen Tuan Hung","Sippotie 6","0403737737","tuan.nguyen@yahoo.com","25-12-1977","Keräjä"), ("Dinh Xuan Justin","Nestorintie 5","0407363635","justin.dinh@yahoo.com","01-08-2012","Päälikkö");
