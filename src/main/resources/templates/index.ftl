@@ -36,13 +36,13 @@
           </div><!--searchEmployee-->
           
           <div id="deleteEmployee" style="display: none">
-                <form class="form-inline">
+                <div class="form-inline">
                     <div class="input-group">
                         <span class="input-group-addon">Number</span>
-                        <input type="text" class="form-control" name="number" placeholder="Enter employee's number">
+                        <input type="text" class="form-control" name="numberDelete" placeholder="Enter employee's number">
                     </div>
-                        <button class="btn btn-default">Delete</button>
-                </form>
+                        <button class="btn btn-default" id="deleteBtn">Delete</button>
+                </div>
           </div><!--deleteEmployee-->
           
           <div id="insertEmployee" style="display: none">
@@ -69,7 +69,7 @@
                    </div>
                    <div class="form-group">
                        <label></label>
-                        <input type="text" class="form-control" name="birthday" placeholder="Enter birthday">
+                        <input type="text" id="datepicker" class="form-control" name="birthday" placeholder="Enter birthday">
                    </div>
                    <div class="form-group">
                        <label></label>
@@ -107,6 +107,20 @@
 </div><!--container-->
 </body>
 <script>
+   var deleteEmployee = function(number){
+       $.ajax({
+          method: "DELETE",
+          url: "http://localhost:8181/restapi/employee/"+number,
+          contentType: "application/json;charset=utf8",
+          success: function(response){
+              alert("The employee with id number "+number+" was deleted");
+          },
+          error: function(error){
+              var errorObj = JSON.parse(error.responseText);
+              alert("Oopps! "+ errorObj.message);
+          }
+       })
+   }
    var insertData = function(employeeObj){
       $.ajax({
          method: "POST",
@@ -149,6 +163,10 @@
                   $("#searchEmployee").hide();
                   $("#deleteEmployee").hide();
                   $("#insertEmployee").show();
+                  $("#datepicker").datepicker({
+                     dateFormat: "dd-mm-yy",
+                     buttonText: "Choose"
+                  });
                   $("#insertBtn").click(function(){
                      var employee = {};
                      employee["name"]= $(":input[name='name']").val();
@@ -165,6 +183,10 @@
                   $("#searchEmployee").hide();
                   $("#updateEmployee").hide();
                   $("#deleteEmployee").show();
+                  $("#deleteBtn").click(function(){
+                     var numberDelete = $(":input[name='numberDelete']").val();
+                     deleteEmployee(numberDelete);
+                  })
                   break;
             case "d":
                   $("#insertEmployee").hide();

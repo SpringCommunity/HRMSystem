@@ -1,7 +1,5 @@
 package springcommunity.demo.hrmsystem.domain;
 
-import java.sql.Date;
-
 public interface Employee {
 	public int getNumber();
 
@@ -27,7 +25,7 @@ public interface Employee {
 
 	public void setPosition(String position);
 
-	public Date getBirthday();
+	public String getBirthday();
 
-	public void setBirthday(Date birthday);
+	public void setBirthday(String birthday);
 }

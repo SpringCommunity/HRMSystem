@@ -73,7 +73,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public int deleteEmployee(int number) {
-		String sql="DELETE * FROM Employee WHERE Number=:number";
+		String sql="DELETE FROM Employee WHERE Number=:number";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 		paramMap.addValue("number",number);
 		try {

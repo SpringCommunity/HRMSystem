@@ -1,7 +1,5 @@
 package springcommunity.demo.hrmsystem.domain;
 
-import java.sql.Date;
-
 public class EmployeeImpl implements Employee {
    private int number;
    private String name;
@@ -9,13 +7,13 @@ public class EmployeeImpl implements Employee {
    private String email;
    private String phone;
    private String position;
-   private Date birthday;
+   private String birthday;
 public EmployeeImpl() {
 	super();
 	// TODO Auto-generated constructor stub
 }
 public EmployeeImpl(int number, String name, String address, String email, String phone, String position,
-		Date birthday) {
+		String birthday) {
 	super();
 	this.number = number;
 	this.name = name;
@@ -61,10 +59,10 @@ public String getPosition() {
 public void setPosition(String position) {
 	this.position = position;
 }
-public Date getBirthday() {
+public String getBirthday() {
 	return birthday;
 }
-public void setBirthday(Date birthday) {
+public void setBirthday(String birthday) {
 	this.birthday = birthday;
 }
    
