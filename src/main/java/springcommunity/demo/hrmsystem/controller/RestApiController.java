@@ -39,6 +39,7 @@ public class RestApiController {
 	@RequestMapping(value="/employee", method = RequestMethod.POST)
 	public ResponseEntity<?> createAnEmployee(@RequestBody Employee employee, UriComponentsBuilder uriBuilder){
 		ErrorMessage error = new ErrorMessage();
+		System.out.println("employee "+ employee.getAddress());
 		error.setMessage("The employee with this email "+ employee.getEmail() + " or phonenumber "+ employee.getPhone() +" already exist, check again!");
 		if(employeeDao.isEmployeeExist(employee)){
 			return new ResponseEntity(error, HttpStatus.CONFLICT);
