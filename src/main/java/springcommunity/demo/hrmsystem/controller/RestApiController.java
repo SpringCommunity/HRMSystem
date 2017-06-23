@@ -20,7 +20,7 @@ import springcommunity.demo.hrmsystem.domain.EmployeeImpl;
 import springcommunity.demo.hrmsystem.domain.ErrorMessage;
 
 @RestController
-@RequestMapping("/restapi")
+@RequestMapping("restapi")
 public class RestApiController {
 	@Autowired
 	private EmployeeDao employeeDao;
