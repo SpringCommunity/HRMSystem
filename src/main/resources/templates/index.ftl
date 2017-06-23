@@ -217,6 +217,7 @@
                   $("#searchEmployee").hide();
                   $("#deleteEmployee").hide();
                   $("#insertEmployee").show();
+                  $("input").val("");
                   $("#datepicker").datepicker({
                      dateFormat: "dd-mm-yy",
                      buttonText: "Choose"
@@ -237,6 +238,7 @@
                   $("#searchEmployee").hide();
                   $("#updateEmployee").hide();
                   $("#deleteEmployee").show();
+                  $(":input[name='numberDelete']").val(" ");
                   $("#deleteBtn").click(function(){
                      var numberDelete = $(":input[name='numberDelete']").val();
                      deleteEmployee(numberDelete);
@@ -247,6 +249,7 @@
                   $("#deleteEmployee").hide();
                   $("#updateEmployee").hide();
                   $("#searchEmployee").show();
+                  $(":input[name='emailSearch']").val(" ");
                   $("#findBtn").click(function(){
                          var lkm = 0;
                          var emailSearch = $(":input[name='emailSearch']").val();
