@@ -151,7 +151,7 @@
          data: JSON.stringify(employee),
          dat: "json",
          success: function(response){
-             $("#result").load(location.href+"/restapi/employee");
+             $("#jsonResult").load(location.href+"/restapi/employee");
              alert("Successfully edit employee's information, thank you!");
          },
          error: function(error){
@@ -166,7 +166,7 @@
           url: location.href+"/restapi/employee/"+number,
           contentType: "application/json;charset=utf8",
           success: function(response){
-              $("#result").load(location.href+"/restapi/employee");
+              $("#jsonResult").load(location.href+"/restapi/employee");
               alert("The employee with id number "+number+" was deleted");
           },
           error: function(error){
@@ -182,7 +182,7 @@
          contentType: "application/json;charset=utf8",
          data: JSON.stringify(employee),
          success: function(response){
-            $("#result").load(location.href+"/restapi/employee");
+            $("#jsonResult").load(location.href+"/restapi/employee");
             $("#insertResult").text("Successfully insert employee, thank you!").addClass("alert alert-success").show();
          },
          error: function(error){
@@ -199,7 +199,7 @@
          dataType: "json",
          timeout: 10000,
          error: function(data){
-           $("#result").html("Cannot fetch data from rest");
+           $("#jsonResult").html("Cannot fetch data from rest");
          }
       }).done(function(data){
           var employees = JSON.stringify(data);
@@ -251,7 +251,7 @@
                   $("#deleteEmployee").hide();
                   $("#updateEmployee").hide();
                   $("#searchEmployee").show();
-                  $(":input[name='emailSearch']").val(" ");
+                  $(":input[name='emailSearch']").val("");
                   $(".result").hide();
                   $("#findBtn").click(function(){
                          var lkm = 0;
