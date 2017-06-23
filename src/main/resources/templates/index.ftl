@@ -209,7 +209,7 @@
                   $("#searchEmployee").hide();
                   $("#deleteEmployee").hide();
                   $("#updateEmployee").hide();
-                  $("#result").text(employees);
+                  $("#jsonResult").text(employees);
                   $("#data").toggle();
                   break;
             case "b":
