@@ -222,8 +222,8 @@
                      dateFormat: "dd-mm-yy",
                      buttonText: "Choose"
                   });
+                  var employee = {};
                   $("#insertBtn").click(function(){
-                     var employee = {};
                      employee["name"]= $(":input[name='name']").val();
                      employee["address"] = $(":input[name='address']").val();
                      employee["email"] = $(":input[name='email']").val();
@@ -250,6 +250,7 @@
                   $("#updateEmployee").hide();
                   $("#searchEmployee").show();
                   $(":input[name='emailSearch']").val(" ");
+                  $("#singleEmployee").hide();
                   $("#findBtn").click(function(){
                          var lkm = 0;
                          var emailSearch = $(":input[name='emailSearch']").val();
@@ -277,7 +278,8 @@
                   $("#searchEmployee").hide();
                   $("#deleteEmployee").hide();
                   $("#updateEmployee").show();
-                  //$("#updateResult").dialog('close');
+                  $("#updateError").hide();
+                  $("#updateResult").hide();
                   $("#updateBtn").click(function(){
                       $("#updateResult").hide();
                       $("#updateError").hide();
