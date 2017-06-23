@@ -151,8 +151,8 @@
          data: JSON.stringify(employee),
          dat: "json",
          success: function(response){
-             alert("Successfully edit employee's information, thank you!");
              $("#result").load(location.href+"/restapi/employee");
+             alert("Successfully edit employee's information, thank you!");
          },
          error: function(error){
             var errorObj = JSON.parse(error.responseText);
@@ -166,8 +166,8 @@
           url: location.href+"/restapi/employee/"+number,
           contentType: "application/json;charset=utf8",
           success: function(response){
-              alert("The employee with id number "+number+" was deleted");
               $("#result").load(location.href+"/restapi/employee");
+              alert("The employee with id number "+number+" was deleted");
           },
           error: function(error){
               var errorObj = JSON.parse(error.responseText);
@@ -182,8 +182,8 @@
          contentType: "application/json;charset=utf8",
          data: JSON.stringify(employee),
          success: function(response){
-            $("#insertResult").text("Successfully insert employee, thank you!").addClass("alert alert-success").show();
             $("#result").load(location.href+"/restapi/employee");
+            $("#insertResult").text("Successfully insert employee, thank you!").addClass("alert alert-success").show();
          },
          error: function(error){
             var errorObj = JSON.parse(error.responseText);
@@ -280,6 +280,7 @@
                   $("#updateEmployee").show();
                   $("#updateError").hide();
                   $("#updateResult").hide();
+                  $(":input[name='keyword']").val("");
                   $("#updateBtn").click(function(){
                       $("#updateResult").hide();
                       $("#updateError").hide();
