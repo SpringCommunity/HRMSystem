@@ -100,18 +100,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	@Override
-	public boolean isEmployeeExist(Employee e) {
+	public Employee isEmployeeExist(Employee e) {
 		String sql= "SELECT * FROM Employee WHERE Phone=:phone OR Email=:email";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 		paramMap.addValue("phone", e.getPhone());
 		paramMap.addValue("email", e.getEmail());
 		RowMapper<Employee> rm = new EmployeeRowMapper();
 		try {
-			jdbcTemplate.queryForObject(sql, paramMap, rm);
-			return true;
+			return jdbcTemplate.queryForObject(sql, paramMap, rm);
 		} catch (DataAccessException e1) {
-			System.out.println("This employee is not exist cause"+ e);
-			return false;
+			System.out.println("This employee is not exist cause"+ e1);
+			return null;
 		}
 		
 	}

@@ -13,5 +13,5 @@ public interface EmployeeDao {
    public Employee findAnEmployee(int number);
    public int updateEmployee(Employee e);
    public int deleteEmployee(int number);
-   public boolean isEmployeeExist(Employee e);
+   public Employee isEmployeeExist(Employee e);
 }

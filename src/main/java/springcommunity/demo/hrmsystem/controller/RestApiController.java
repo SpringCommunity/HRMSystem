@@ -40,16 +40,18 @@ public class RestApiController {
 	@RequestMapping(value="/employee", method = RequestMethod.POST)
 	public ResponseEntity<?> createAnEmployee(@RequestBody EmployeeImpl employee, UriComponentsBuilder uriBuilder){
 		ErrorMessage error = new ErrorMessage();
-		System.out.println("employee "+ employee.getAddress());
-		System.out.println(uriBuilder.toUriString());
+		System.out.println(employee.getEmail());
+		System.out.println(employee.getPhone());
+		System.out.println(employeeDao.isEmployeeExist(employee));
 		error.setMessage("The employee with this email "+ employee.getEmail() + " or phonenumber "+ employee.getPhone() +" already exist, check again!");
-        if(employeeDao.isEmployeeExist(employee)){
+        if(employeeDao.isEmployeeExist(employee) != null){
 			return new ResponseEntity<ErrorMessage>(error, HttpStatus.CONFLICT);
-		}
+		} else {
 		    employeeDao.createNewEmployee(employee);
 		    HttpHeaders headers = new HttpHeaders();
 		    headers.setLocation(uriBuilder.path("/restapi/employee/{number}").buildAndExpand(employee.getNumber()).toUri());
 		    return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+		}
 	}
 
 	@RequestMapping(value="/employee/{number}", method= RequestMethod.DELETE)
