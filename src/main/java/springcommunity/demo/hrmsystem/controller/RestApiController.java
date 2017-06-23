@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import springcommunity.demo.hrmsystem.dao.EmployeeDao;
 import springcommunity.demo.hrmsystem.domain.Employee;
+import springcommunity.demo.hrmsystem.domain.EmployeeImpl;
 import springcommunity.demo.hrmsystem.domain.ErrorMessage;
 
 @RestController
@@ -37,12 +38,13 @@ public class RestApiController {
 	}
 	
 	@RequestMapping(value="/employee", method = RequestMethod.POST)
-	public ResponseEntity<?> createAnEmployee(@RequestBody Employee employee, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<?> createAnEmployee(@RequestBody EmployeeImpl employee, UriComponentsBuilder uriBuilder){
 		ErrorMessage error = new ErrorMessage();
 		System.out.println("employee "+ employee.getAddress());
+		System.out.println(uriBuilder.toUriString());
 		error.setMessage("The employee with this email "+ employee.getEmail() + " or phonenumber "+ employee.getPhone() +" already exist, check again!");
-		if(employeeDao.isEmployeeExist(employee)){
-			return new ResponseEntity(error, HttpStatus.CONFLICT);
+        if(employeeDao.isEmployeeExist(employee)){
+			return new ResponseEntity<ErrorMessage>(error, HttpStatus.CONFLICT);
 		}
 		    employeeDao.createNewEmployee(employee);
 		    HttpHeaders headers = new HttpHeaders();
@@ -56,19 +58,19 @@ public class RestApiController {
 		error.setMessage("No employee found with number "+ number);
 		Employee employee = employeeDao.findAnEmployee(number);
 		if(employee == null){
-			return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<ErrorMessage>(error, HttpStatus.NOT_FOUND);
 		}
 		employeeDao.deleteEmployee(number);
 		return new ResponseEntity<Employee>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(value="/employee/{number}", method= RequestMethod.PUT)
-	public ResponseEntity<?> updateAnEmployee(@PathVariable("number") Integer number, @RequestBody Employee employee){
+	public ResponseEntity<?> updateAnEmployee(@PathVariable("number") Integer number, @RequestBody EmployeeImpl employee){
 		ErrorMessage error = new ErrorMessage();
 		error.setMessage("No employee found with number "+ number);
 		Employee currentEmployee = employeeDao.findAnEmployee(number);
 		if(currentEmployee == null){
-			return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<ErrorMessage>(error, HttpStatus.NOT_FOUND);
 		}
 		currentEmployee.setAddress(employee.getAddress());
 		currentEmployee.setBirthday(employee.getBirthday());

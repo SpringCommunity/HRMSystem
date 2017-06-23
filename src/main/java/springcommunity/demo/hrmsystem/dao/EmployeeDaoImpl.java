@@ -18,9 +18,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public int createNewEmployee(Employee e) {
-		String sql = "INSERT INTO Employee(Number,Name,Address,Phone,Email,Birthday,Position) VALUES (:number,:name,:address,:phone,:email,:birthday,:position) ";
+		String sql = "INSERT INTO Employee(Name,Address,Phone,Email,Birthday,Position) VALUES (:name,:address,:phone,:email,:birthday,:position) ";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
-		paramMap.addValue("number", e.getNumber());
 		paramMap.addValue("name", e.getName());
 		paramMap.addValue("address", e.getAddress());
 		paramMap.addValue("phone", e.getPhone());
@@ -107,7 +106,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		paramMap.addValue("phone", e.getPhone());
 		paramMap.addValue("email", e.getEmail());
 		RowMapper<Employee> rm = new EmployeeRowMapper();
-		return 	(jdbcTemplate.queryForObject(sql, paramMap, rm) == null)? false : true;
+		try {
+			jdbcTemplate.queryForObject(sql, paramMap, rm);
+			return true;
+		} catch (DataAccessException e1) {
+			System.out.println("This employee is not exist cause"+ e);
+			return false;
+		}
 		
 	}
 

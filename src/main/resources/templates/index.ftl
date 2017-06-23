@@ -2,10 +2,10 @@
 <body>
 <div class="container border">
     <div class="jumbotron text-center">
-       <h2>Demo building Rest service and SPA using Spring framework</h2>
+       <h2>Demostration building Restful service and SPA using Spring framework</h2>
        <p>Author: Dinh Duc</p>
        <p>Date created: Thu 22 June 2017</p>
-       <p>Technologies used: Spring Boot, Spring Rest, jQuery, Ajax, JSON, Bootstrap, Javascript, Freemarker, HTML, CSS, MariaDB, Heroku</p>
+       <p>Technologies used: Spring Boot, Spring Rest, Javascript, jQuery, Ajax, JSON, Bootstrap, Freemarker, HTML, CSS, MariaDB, Heroku, Github</p>
     </div><!--jumbotron-->
     <div class="row text-center">
        <div class="col-sm-5">
@@ -146,25 +146,28 @@
    var updateEmployee = function(number, employee){
       $.ajax({
          method: "PUT",
-         url: "http://hrmsystem.herokuapp.com/restapi/employee/"+number,
+         url: location.href+"/restapi/employee/"+number,
          contentType: "application/json;charset=utf8",
          data: JSON.stringify(employee),
+         dat: "json",
          success: function(response){
              alert("Successfully edit employee's information, thank you!");
+             $("#result").load(location.href+"/restapi/employee");
          },
          error: function(error){
             var errorObj = JSON.parse(error.responseText);
-            alert("Cannot insert this employee cause "+ errorObj.error+" ("+errorObj.status+")");
+            alert("Cannot insert this employee cause [ "+ errorObj.message+" ("+errorObj.status+") ]");
          }
       })
    }
    var deleteEmployee = function(number){
        $.ajax({
           method: "DELETE",
-          url: "http://hrmsystem.herokuapp.com/restapi/employee/"+number,
+          url: location.href+"/restapi/employee/"+number,
           contentType: "application/json;charset=utf8",
           success: function(response){
               alert("The employee with id number "+number+" was deleted");
+              $("#result").load(location.href+"/restapi/employee");
           },
           error: function(error){
               var errorObj = JSON.parse(error.responseText);
@@ -172,25 +175,26 @@
           }
        })
    }
-   var insertData = function(employeeObj){
+   var insertData = function(employee){
       $.ajax({
          method: "POST",
-         url: "http://hrmsystem.herokuapp.com/restapi/employee",
+         url: location.href+"/restapi/employee",
          contentType: "application/json;charset=utf8",
-         data: JSON.stringify(employeeObj),
+         data: JSON.stringify(employee),
          success: function(response){
             $("#insertResult").text("Successfully insert employee, thank you!").addClass("alert alert-success").show();
+            $("#result").load(location.href+"/restapi/employee");
          },
          error: function(error){
             var errorObj = JSON.parse(error.responseText);
-            $("#insertResult").text("Cannot insert this employee cause "+ errorObj.error+" ("+errorObj.status+")").addClass("alert alert-warning").show();
+            $("#insertResult").text("Cannot insert this employee cause [ "+ errorObj.message+" ("+errorObj.status+") ]").addClass("alert alert-warning").show();
          }
       });
    }
    
    var fetchData = function(selected){
       $.ajax({
-         url: "http://hrmsystem.herokuapp.com/restapi/employee",
+         url: location.href+"/restapi/employee",
          method: "GET",
          dataType: "json",
          timeout: 10000,

@@ -12,10 +12,9 @@ public EmployeeImpl() {
 	super();
 	// TODO Auto-generated constructor stub
 }
-public EmployeeImpl(int number, String name, String address, String email, String phone, String position,
+public EmployeeImpl(String name, String address, String email, String phone, String position,
 		String birthday) {
 	super();
-	this.number = number;
 	this.name = name;
 	this.address = address;
 	this.email = email;
