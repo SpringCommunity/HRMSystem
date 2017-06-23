@@ -30,7 +30,7 @@
 	                 </div>
 	                   <button class="btn btn-default" id="findBtn">Find</button>
 	               </div>     
-	                 <div id="singleEmployee" style="display: none; margin-top: 20px;"> 
+	                 <div id="singleEmployee" class="result" style="display: none; margin-top: 20px;"> 
 	                 </div>
              </div>
           </div><!--searchEmployee-->
@@ -46,7 +46,7 @@
           </div><!--deleteEmployee-->
           
           <div id="insertEmployee" style="display: none">
-                   <div id="insertResult" style="display: none">
+                   <div id="insertResult" class="result" style="display: none">
                    </div>
                    <div class="form-group text-center">
                        <h3 class="btn btn-primary">Insert new employee</h3>
@@ -90,8 +90,8 @@
 	               <button class="btn btn-default" id="updateBtn">Search</button>
 	          </div>
 	      </div>    
-	          <div id="updateError" style="display:none; margin-top: 20px;"></div>
-	          <div id="updateResult" style="display:none; margin-top: 20px;">
+	          <div id="updateError" class="result" style="display:none; margin-top: 20px;"></div>
+	          <div id="updateResult" class="result" style="display:none; margin-top: 20px;">
 	               <div class="form-group text-center">
                        <h3 class="btn btn-primary">Update employee's information</h3>
                    </div>
@@ -133,7 +133,7 @@
              <button class="btn btn-success">Data with json type</button>
           </div>
           <div class="row">
-             <div id="result">
+             <div id="jsonResult">
              </div>
           </div>
        </div><!--col-sm-5-->
@@ -218,6 +218,7 @@
                   $("#deleteEmployee").hide();
                   $("#insertEmployee").show();
                   $("input").val("");
+                  $(".result").hide();
                   $("#datepicker").datepicker({
                      dateFormat: "dd-mm-yy",
                      buttonText: "Choose"
@@ -239,6 +240,7 @@
                   $("#updateEmployee").hide();
                   $("#deleteEmployee").show();
                   $(":input[name='numberDelete']").val(" ");
+                  $(".result").hide();
                   $("#deleteBtn").click(function(){
                      var numberDelete = $(":input[name='numberDelete']").val();
                      deleteEmployee(numberDelete);
@@ -250,7 +252,7 @@
                   $("#updateEmployee").hide();
                   $("#searchEmployee").show();
                   $(":input[name='emailSearch']").val(" ");
-                  $("#singleEmployee").hide();
+                  $(".result").hide();
                   $("#findBtn").click(function(){
                          var lkm = 0;
                          var emailSearch = $(":input[name='emailSearch']").val();
@@ -278,12 +280,9 @@
                   $("#searchEmployee").hide();
                   $("#deleteEmployee").hide();
                   $("#updateEmployee").show();
-                  $("#updateError").hide();
-                  $("#updateResult").hide();
+                  $(".result").hide();
                   $(":input[name='keyword']").val("");
                   $("#updateBtn").click(function(){
-                      $("#updateResult").hide();
-                      $("#updateError").hide();
                       var lkm=0;
                       var keyword = $(":input[name='keyword']").val();
                       for(var i=0; i < data.length; i++){

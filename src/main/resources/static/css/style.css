@@ -2,8 +2,7 @@
 	margin: auto;
 }
 
-#result {
-	//display: none;
+#jsonResult {
 	background-color: #eee;
 	width: 500px;
 	color: black;
